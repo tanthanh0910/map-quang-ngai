@@ -1,0 +1,11 @@
+ .choices[data-type*="select-multiple"] .choices__list--dropdown {
+    width: auto !important;
+    min-width: 100%;
+    max-width: 600px !important;
+}
+
+.choices__list[aria-expanded] .choices__item {
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+}

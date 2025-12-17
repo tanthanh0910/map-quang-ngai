@@ -1,0 +1,283 @@
+button span {
+    color: white
+}
+
+button span:hover {
+    color: white
+}
+
+#btn-pass,
+#btn-fail,
+#btn-save-defects,
+#btn-quick-submit {
+    position: relative;
+    min-width: 250px;
+}
+
+.btn-text {
+    transition: opacity 0.2s ease;
+}
+
+.form-check-input:checked {
+    background-color: #ff9800;
+    border-color: #ff9800;
+}
+
+.btn-warning {
+    background-color: #ff9800;
+    border-color: #ff9800;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #f57c00;
+    border-color: #f57c00;
+    color: white;
+}
+
+.title {
+    font-size: 30px
+}
+
+.card-body {
+    padding: 8px !important;
+}
+
+.offcanvas.offcanvas-end {
+    width: 400px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+#defectSidebar.show {
+    transform: translateX(0);
+}
+
+.offcanvas-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    opacity: 0.5;
+}
+
+.offcanvas-backdrop.fade {
+    opacity: 0;
+    transition: opacity 0.15s linear;
+}
+
+.offcanvas-backdrop.show {
+    opacity: 0.5;
+}
+
+body.offcanvas-open {
+    overflow: hidden;
+}
+
+.defect-item {
+    font-size: 25px
+}
+
+.font-size-25px-important {
+    font-size: 25px !important;
+}
+
+.min-width-150px {
+    min-width: 150px !important;
+}
+
+
+/* Number jump animation */
+.animate-jump {
+    animation: jump 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    color: #ff6b35 !important;
+}
+
+@keyframes jump {
+    0% {
+        transform: translateY(0) scale(1);
+        color: inherit;
+    }
+
+    50% {
+        transform: translateY(-8px) scale(1.15);
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+        color: inherit;
+    }
+}
+
+/* Spinner classes are provided by Bootstrap, app-specific loading visuals removed */
+
+/* Defect card selection */
+.defect-card.selected {
+    background-color: #ff9800 !important;
+    color: white !important;
+}
+
+.defect-card {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.defect-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Quick defect card selection */
+.quick-defect-card.selected {
+    background-color: #ff9800 !important;
+    color: white !important;
+}
+
+.quick-defect-card {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.quick-defect-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Inspection action buttons */
+#btn-pass,
+#btn-fail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    flex: 1 1 0;
+    min-height: 0;
+}
+
+#btn-pass:hover {
+    background-color: #28a745 !important;
+    transform: scale(1.02);
+}
+
+#btn-fail:hover {
+    background-color: #dc3545 !important;
+    transform: scale(1.02);
+}
+
+/* Statistics cards font size */
+.fs-2 {
+    font-size: 24px !important;
+}
+
+/* Quick defect cards font size */
+.quick-defect-card .defect-name {
+    font-size: 26px !important;
+}
+
+/* History table font size */
+#history-table {
+    font-size: 18px;
+}
+
+#history-table th {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* Modal font sizes */
+.modal-title {
+    font-size: 32px !important;
+}
+
+.modal-body {
+    font-size: 20px;
+}
+
+/* Section headers */
+h6 {
+    font-size: 24px !important;
+}
+
+/* Form elements */
+.form-select,
+.form-control {
+    font-size: 18px !important;
+}
+
+/* Quick submit button */
+#btn-quick-submit {
+    font-size: 24px !important;
+    font-weight: bold;
+    padding: 12px 24px !important;
+}
+
+/* Main content - use flexbox for proportional scaling */
+.inspection-main-content {
+    display: flex;
+    flex-direction: column;
+    /* height: 70vh; */
+}
+
+.inspection-main-content>.row:first-child {
+    flex: 0 0 auto;
+    /* Statistics cards - fixed size */
+}
+
+.inspection-main-content>div:last-child {
+    flex: 1 1 auto;
+    /* Action buttons section - takes remaining space */
+    min-height: 0;
+    display: flex;
+}
+
+.inspection-text {
+    font-size: 1.25rem;
+}
+
+/* Completion card styling */
+#inspection-complete .card {
+    border-radius: 12px;
+    padding: 0.5rem;
+}
+
+#inspection-complete .icon {
+    width: 28px;
+    height: 28px;
+}
+
+#inspection-complete.show {
+    animation: fadeIn 0.3s ease-out;
+}
+
+#inspection-complete {
+    width: 100%;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Small inline limit notice */
+#inspection-limit-notice {
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    display: inline-block;
+    background-color: #fff3cd;
+    /* subtle warning */
+    color: #856404;
+    border: 1px solid rgba(255, 193, 7, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
