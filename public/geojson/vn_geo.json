@@ -5102,7 +5102,7 @@
       "properties": {
         "cartodb_id": 64,
         "id_1": 64,
-        "name": "Hoàng Sa (Đà Nẵng)",
+        "name": "Hoàng Sa",
         "slug": "vietnam-hoangsa"
       },
       "geometry": {
@@ -5959,7 +5959,7 @@
       "properties": {
         "cartodb_id": 64,
         "id_1": 64,
-        "name": "Trường Sa (Khánh Hòa)",
+        "name": "Trường Sa",
         "slug": "vietnam-truongsa"
       },
       "geometry": {
