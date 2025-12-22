@@ -25,3 +25,12 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::resource('users', AdminUserController::class);
     });
 });
+
+// routes/web.php
+Route::get('/sitemap.xml', function () {
+    $places = \App\Models\Place::all();
+
+    return response()->view('sitemap', compact('places'))
+        ->header('Content-Type', 'application/xml');
+});
+

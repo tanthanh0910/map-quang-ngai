@@ -3,15 +3,17 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Bản đồ Việt Nam - Thông tin thành phố / phường</title>
+    <title>Bản đồ địa điểm Phường Đức Phổ - Tỉnh Quảng Ngãi - Thông tin thành phố / phường</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Xem bản đồ nhà hàng, khách sạn, bệnh viện, trường học, quán nhậu, cafe, chợ trên toàn Phường Đức Phổ, Tỉnh Quảng Ngãi. Tìm đường nhanh chóng, chính xác, hỗ trợ địa chỉ hành chính mới sau sáp nhập.">
 
     <link rel="stylesheet" href="{{ asset('leaflet/dist/leaflet.css') }}" />
     {{-- <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" /> --}}
     <link rel="stylesheet" href="{{ asset('leaflet/dist/MarkerCluster.css') }}" />
     {{-- <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" /> --}}
     <link rel="stylesheet" href="{{ asset('leaflet/dist/MarkerCluster.Default.css') }}" />
-
+    <meta name="google-site-verification"
+            content="mBOi32kuL--NbhuAqUUXyI42Mz7g2SfZgvSdGbJpAv8" />
     <style>
         html,
         body {
@@ -156,7 +158,7 @@
             left: 3px;
             top: 3px;
             bottom: 3px;
-            width: 340px;
+            width: 320px;
             height: calc(100vh - 8px);
             overflow-y: auto;
             padding: 12px;
@@ -272,7 +274,7 @@
     <div id="map"></div>
 
     <!-- coordinate tooltip -->
-    <div id="coordTooltip" class="coord-tooltip" style="display:none">Lat: -, Lng: -</div>
+    {{-- <div id="coordTooltip" class="coord-tooltip" style="display:none">Lat: -, Lng: -</div> --}}
     <!-- coordinate tooltip (right) -->
     <div id="coordTooltipRight" class="coord-tooltip coord-tooltip-right" style="display:none">Lat: -, Lng: -</div>
 
@@ -292,13 +294,14 @@
 
         <strong style="font-size: 20px; font-family: Times;">Loại địa điểm</strong><br />
         @foreach ($filterTypes as $t)
-            <label style="display:block; padding-top:10px">
+            <label style="display:block; padding-top:10px;">
                 <input name="types_id" type="checkbox" value="{{ $t->id }}"><span style="font-size: 20px; font-family: Times;"> {{ $t->name }}</span>
                 @if($t->icon)
                     <img src="{{ asset('icons/' . $t->icon) }}" class="icon">
                 @endif
             </label><br />
         @endforeach
+        <div style="padding-bottom: 60px;">.......</div>
     </div>
 
     {{-- <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> --}}
