@@ -8,7 +8,7 @@
         var geojsonUrl = window.geojsonUrl;
 
         // initialize map centered on Quảng Ngãi (Quảng Ngãi city area)
-        var map = L.map('map').setView([14.805919565207839, 108.925838470459], 13);
+        var map = L.map('map').setView([14.805588, 108.958969], 13);
 
         // base layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

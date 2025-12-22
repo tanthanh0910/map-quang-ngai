@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Bản đồ Việt Nam - Thông tin thành phố / phường</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="{{ asset('leaflet/dist/leaflet.css') }}" />
     {{-- <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" /> --}}
@@ -199,6 +200,70 @@
             padding: 4px 12px;
             text-shadow: 0 1px 2px #fff, 0 0 2px #fff;
         }
+
+
+/* DESKTOP */
+#placeFilter {
+    position: fixed;
+    left: 3px;
+    top: 3px;
+    bottom: 3px;
+    width: 340px;
+    height: calc(100vh - 8px);
+    overflow-y: auto;
+    padding: 12px;
+    box-sizing: border-box;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 6px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    #placeFilter {
+        left: 0;
+        top: 0;
+        bottom: 0;
+        height: 100vh;
+        border-radius: 0;
+        transform: translateX(-100%); /* ẨN HOÀN TOÀN */
+    }
+
+    #placeFilter.active {
+        transform: translateX(0); /* HIỆN */
+    }
+}
+
+
+.filter-toggle-btn {
+    display: none;
+        z-index: 2000;
+
+}
+
+@media (max-width: 768px) {
+    .filter-toggle-btn {
+        display: flex;
+        position: fixed;
+        top: 14px;
+        left: 14px;
+        z-index: 2000; /* CAO HƠN LEAFLET */
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: none;
+        background: #0d6efd;
+        color: #fff;
+        font-size: 22px;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+}
+
+
     </style>
 </head>
 
@@ -212,6 +277,8 @@
     <div id="coordTooltipRight" class="coord-tooltip coord-tooltip-right" style="display:none">Lat: -, Lng: -</div>
 
     <!-- legend / filter UI -->
+    <button id="btnToggleFilter" class="filter-toggle-btn">☰</button>
+
     <div id="placeFilter" class="place-filter">
         <strong style="font-size: 20px; font-family: Times;">Chỉ đường tới địa điểm</strong><br />
 
@@ -254,6 +321,26 @@
     </script>
     <script src="{{ asset('js-block/map.js') }}"></script>
     <script src="{{ asset('js-block/f12.js') }}"></script>
+    <script>
+        document.getElementById('btnToggleFilter').addEventListener('click', function () {
+            document.getElementById('placeFilter').classList.toggle('active');
+        });
+        document.addEventListener('click', function (e) {
+    const panel = document.getElementById('placeFilter');
+    const btn = document.getElementById('btnToggleFilter');
+
+    if (
+        panel.classList.contains('active') &&
+        !panel.contains(e.target) &&
+        !btn.contains(e.target)
+    ) {
+        panel.classList.remove('active');
+    }
+});
+
+    </script>
+    
+
 </body>
 
 </html>
