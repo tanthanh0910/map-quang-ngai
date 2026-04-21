@@ -11,7 +11,15 @@ class MapController extends Controller
 {
     public function index(Request $request)
     {
-        $filterTypes = PlaceType::orderBy('id','asc')->get();
-        return view('web.map.vietnam', compact('filterTypes'));
+        $rescueType  = PlaceType::where('name', 'Cứu hộ')->first();
+        $filterTypes = PlaceType::when($rescueType, fn($q) => $q->where('id', '!=', $rescueType->id))
+            ->orderBy('id', 'asc')
+            ->get();
+        $rescueCount = $rescueType
+            ? Place::where('type_id', $rescueType->id)
+                ->where('status', 'active')
+                ->count()
+            : 0;
+        return view('web.map.vietnam', compact('filterTypes', 'rescueType', 'rescueCount'));
     }
 }

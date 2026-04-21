@@ -477,6 +477,54 @@
                                 try { map.closePopup(); } catch(e) {}
                             });
                         });
+                        // Mark rescue as done
+                        var btnRescueDone = popupEl.querySelector('.btn-rescue-done');
+                        if (btnRescueDone) {
+                            btnRescueDone.addEventListener('click', function(ev) {
+                                ev.preventDefault();
+                                var pid = this.dataset.id;
+                                if (!pid) return;
+                                if (!confirm('Xác nhận đã cứu hộ xong điểm này?')) return;
+                                var self = this;
+                                self.disabled = true;
+                                self.textContent = 'Đang cập nhật...';
+                                fetch('/api/places/' + encodeURIComponent(pid) + '/resolve', {
+                                    method: 'POST',
+                                    headers: { 'Accept': 'application/json' }
+                                }).then(function(r) {
+                                    return r.json().then(function(j) { return { ok: r.ok, body: j }; });
+                                }).then(function(res) {
+                                    if (!res.ok || !res.body.ok) {
+                                        alert(res.body.message || 'Cập nhật thất bại.');
+                                        self.disabled = false;
+                                        self.innerHTML = '✅ Đã cứu hộ';
+                                        return;
+                                    }
+                                    // remove marker from cluster + caches
+                                    try {
+                                        var mk = markersById[String(pid)];
+                                        if (mk) { markersCluster.removeLayer(mk); delete markersById[String(pid)]; }
+                                    } catch (e) {}
+                                    if (Array.isArray(loadedPlaces)) {
+                                        loadedPlaces = loadedPlaces.filter(function(x) { return String(x.id) !== String(pid); });
+                                    }
+                                    // decrement badge
+                                    try {
+                                        var badge = document.getElementById('rescueBadge');
+                                        if (badge) {
+                                            var n = Math.max(0, (parseInt(badge.textContent, 10) || 0) - 1);
+                                            badge.textContent = n;
+                                            if (n === 0) badge.classList.add('rescue-badge--zero');
+                                        }
+                                    } catch (e) {}
+                                    try { map.closePopup(); } catch(e) {}
+                                }).catch(function(err) {
+                                    alert('Lỗi mạng: ' + err.message);
+                                    self.disabled = false;
+                                    self.innerHTML = '✅ Đã cứu hộ';
+                                });
+                            });
+                        }
                     } catch (e) { console.warn('popupopen route attach error', e); }
                 });
 
@@ -510,8 +558,11 @@
  
                  // add route button
                  if (p.lat && p.lng) {
-                     parts.push('<div style="margin-top:8px;text-align:center;display:flex;gap:6px;justify-content:center;">');
+                     parts.push('<div style="margin-top:8px;text-align:center;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;">');
                      parts.push('<button class="btn-route btn btn-sm" data-lat="' + escapeHtml(String(p.lat)) + '" data-lng="' + escapeHtml(String(p.lng)) + '">Đi tới đây</button>');
+                     if (p.type_name === 'Cứu hộ') {
+                         parts.push('<button class="btn-rescue-done" data-id="' + escapeHtml(String(p.id)) + '" style="padding:6px 10px;border:none;border-radius:8px;background:linear-gradient(180deg,#22c55e,#15803d);color:#fff;font-size:13px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.12);">✅ Đã cứu hộ</button>');
+                     }
                     //  parts.push('<button class="btn-set-start btn btn-sm" data-id="' + escapeHtml(String(p.id)) + '" data-lat="' + escapeHtml(String(p.lat)) + '" data-lng="' + escapeHtml(String(p.lng)) + '" data-name="' + escapeHtml(String(p.name || '')) + '">Đặt làm bắt đầu</button>');
                     //  parts.push('<button class="btn-set-end btn btn-sm" data-id="' + escapeHtml(String(p.id)) + '" data-lat="' + escapeHtml(String(p.lat)) + '" data-lng="' + escapeHtml(String(p.lng)) + '" data-name="' + escapeHtml(String(p.name || '')) + '">Đặt làm kết thúc</button>');
                      parts.push('</div>');

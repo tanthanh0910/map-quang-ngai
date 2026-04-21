@@ -17,3 +17,5 @@ use App\Http\Controllers\PlaceController;
 */
 
 Route::get('/places', [PlaceController::class, 'index']);
+Route::post('/places/support', [PlaceController::class, 'storeSupport']);
+Route::post('/places/{id}/resolve', [PlaceController::class, 'resolveSupport'])->whereNumber('id');
