@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Place;
 use App\Models\PlaceType;
+use App\Enums\PlaceStatus;
 
 class PlaceController extends Controller
 {
     public function index(Request $request)
     {
         // optional filtering by type_id
-        $q = Place::with('type')->where('status','active');
+        $q = Place::with('type')->where('status', PlaceStatus::ACTIVE->value);
         if ($request->has('type_id')) {
             // accept type name or id
             $type = $request->get('type_id');
@@ -74,7 +75,7 @@ class PlaceController extends Controller
         $place = Place::create(array_merge($data, [
             'type_id' => $type->id,
             'icon'    => $type->icon,
-            'status'  => 'active',
+            'status'  => PlaceStatus::ACTIVE->value,
         ]));
 
         return response()->json([
@@ -94,7 +95,7 @@ class PlaceController extends Controller
             ], 422);
         }
 
-        $place->status = 'resolved';
+        $place->status = PlaceStatus::RESOLVED->value;
         $place->save();
 
         return response()->json([

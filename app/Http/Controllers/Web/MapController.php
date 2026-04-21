@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Place;
 use App\Models\PlaceType;
+use App\Enums\PlaceStatus;
 
 class MapController extends Controller
 {
@@ -17,7 +18,7 @@ class MapController extends Controller
             ->get();
         $rescueCount = $rescueType
             ? Place::where('type_id', $rescueType->id)
-                ->where('status', 'active')
+                ->where('status', PlaceStatus::ACTIVE->value)
                 ->count()
             : 0;
         return view('web.map.vietnam', compact('filterTypes', 'rescueType', 'rescueCount'));

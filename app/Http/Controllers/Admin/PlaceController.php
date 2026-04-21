@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Models\Place;
 use App\Models\PlaceType;
+use App\Enums\PlaceStatus;
 
 class PlaceController extends Controller
 {
@@ -42,7 +44,7 @@ class PlaceController extends Controller
             'thumbnail'=>'nullable|image|max:4096',
             'time'=>'nullable|string',
             'description'=>'nullable|string',
-            'status'=>'nullable|string',
+            'status'=>['nullable','string', Rule::in(PlaceStatus::values())],
         ]);
         // ensure type_id is present and saved
         $placeData = $data;
@@ -83,7 +85,7 @@ class PlaceController extends Controller
             'thumbnail'=>'nullable|image|max:4096',
             'time'=>'nullable|string',
             'description'=>'nullable|string',
-            'status'=>'nullable|string',
+            'status'=>['nullable','string', Rule::in(PlaceStatus::values())],
         ]);
         // handle thumbnail upload and remove old file if replaced
         if ($request->hasFile('thumbnail')) {

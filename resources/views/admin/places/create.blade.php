@@ -65,8 +65,9 @@
                 <div class="col-md-6">
                     <label for="status" class="form-label">Status</label>
                     <select name="status" id="status" class="form-control @error('status') is-invalid @enderror">
-                        <option value="active" {{ old('status','active')=='active' ? 'selected' : '' }}>active</option>
-                        <option value="inactive" {{ old('status')=='inactive' ? 'selected' : '' }}>inactive</option>
+                        @foreach (\App\Enums\PlaceStatus::options() as $value => $label)
+                            <option value="{{ $value }}" {{ old('status', \App\Enums\PlaceStatus::ACTIVE->value) == $value ? 'selected' : '' }}>{{ $label }}</option>
+                        @endforeach
                     </select>
                     @error('status')<div class="invalid-feedback">{{ $message }}</div>@enderror
                 </div>
